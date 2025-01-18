@@ -17,8 +17,8 @@
                 "${workspaceFolder}/**/*.js"
             ],
             "args": [
-                "project-files/source_images/one-does-not-simply.ppm", 
-                "project-files/my_images/one-does-not-simply.ppm", 
+                "project-files/source_images/Penguins.ppm", 
+                "project-files/my_images/emboss-Penguins.ppm", 
                 "emboss"
             ],
             "preLaunchTask": "tsc: build - tsconfig.json"

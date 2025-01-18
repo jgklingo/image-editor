@@ -99,15 +99,59 @@ class ImageEditor {
     }
 
     private invert(image: EditImage): void {
+        for (let x = 0; x < image.getWidth(); ++x) {
+            for (let y = 0; y < image.getHeight(); ++y) {
+                const curColor: Color = image.get(x, y);
 
+                curColor.red = 255 - curColor.red;
+                curColor.green = 255 - curColor.green;
+                curColor.blue = 255 - curColor.blue;
+            }
+        }
     }
 
     private grayscale(image: EditImage): void {
+        for (let x = 0; x < image.getWidth(); ++x) {
+            for (let y = 0; y < image.getHeight(); ++y) {
+                const curColor: Color = image.get(x, y);
 
+                let grayLevel: number = Math.floor((curColor.red + curColor.green + curColor.blue) / 3);
+                grayLevel = Math.max(0, Math.min(grayLevel, 255));
+
+                curColor.red = grayLevel;
+                curColor.green = grayLevel;
+                curColor.blue = grayLevel;
+            }
+        }
     }
 
     private emboss(image: EditImage): void {
+        for (let x = 0; x < image.getWidth(); ++x) {
+            for (let y = 0; y < image.getHeight(); ++y) {
+                const curColor: Color = image.get(x, y);
 
+                let diff: number = 0;
+                if (x > 0 && y > 0) {
+                    const upLeftColor = image.get(x - 1, y - 1);
+                    if (Math.abs(curColor.red - upLeftColor.red) > Math.abs(diff)) {
+                        diff = curColor.red - upLeftColor.red;
+                    }
+                    if (Math.abs(curColor.green - upLeftColor.green) > Math.abs(diff)) {
+                        diff = curColor.green - upLeftColor.green;
+                    }
+                    if (Math.abs(curColor.blue - upLeftColor.blue) > Math.abs(diff)) {
+                        diff = curColor.blue - upLeftColor.blue;
+                    }
+                }
+
+                let grayLevel: number = (128 + diff);
+                grayLevel = Math.max(0, Math.min(grayLevel, 255));
+
+                curColor.red = grayLevel;
+                curColor.green = grayLevel;
+                curColor.blue = grayLevel;
+            }
+        }
     }
 
     private read(filepath: string): EditImage {
@@ -164,7 +208,7 @@ class ImageEditor {
 }
 
 
-class Color {  // complete?
+class Color {
     public red: number;
     public green: number;
     public blue: number;
@@ -177,7 +221,7 @@ class Color {  // complete?
 }
 
 
-class EditImage {  // complete?
+class EditImage {
     private pixels: Color[][];
 
     public constructor(width: number, height: number) {  // asked AI for example constructors
