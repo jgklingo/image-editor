@@ -14,7 +14,7 @@ class ImageEditor {
             const outputFile: string = args[1];
             const filter: string = args[2];
 
-            const image: EditImage = this.read(inputFile);
+            const image: Image = this.read(inputFile);
 
             if (filter === "grayscale" || filter === "greyscale") {
                 if (args.length != 3) {
@@ -71,7 +71,7 @@ class ImageEditor {
         console.log("USAGE: node ImageEditor.js <in-file> <out-file> <grayscale|invert|emboss|motionblur> {motion-blur-length}");
     }
 
-    private motionblur(image: EditImage, length: number): void {
+    private motionblur(image: Image, length: number): void {
         if (length < 1) {
             return;
         }
@@ -96,7 +96,7 @@ class ImageEditor {
 
     }
 
-    private invert(image: EditImage): void {
+    private invert(image: Image): void {
         for (let x = 0; x < image.getWidth(); ++x) {
             for (let y = 0; y < image.getHeight(); ++y) {
                 const curColor: Color = image.get(x, y);
@@ -108,7 +108,7 @@ class ImageEditor {
         }
     }
 
-    private grayscale(image: EditImage): void {
+    private grayscale(image: Image): void {
         for (let x = 0; x < image.getWidth(); ++x) {
             for (let y = 0; y < image.getHeight(); ++y) {
                 const curColor: Color = image.get(x, y);
@@ -123,7 +123,7 @@ class ImageEditor {
         }
     }
 
-    private emboss(image: EditImage): void {
+    private emboss(image: Image): void {
         for (let x = image.getWidth() - 1; x >= 0; --x) {
             for (let y = image.getHeight() - 1; y >= 0; --y) {
                 const curColor: Color = image.get(x, y);
@@ -152,8 +152,8 @@ class ImageEditor {
         }
     }
 
-    private read(filepath: string): EditImage {
-        let image: EditImage;
+    private read(filepath: string): Image {
+        let image: Image;
 
         const file: string = fs.readFileSync(filepath, {encoding: "utf-8"});
         const tokens: string[] = file.split(/\s+/);
@@ -165,7 +165,7 @@ class ImageEditor {
         const width: number = parseInt(tokens[++t]);
         const height: number = parseInt(tokens[++t]);
 
-        image = new EditImage(width, height);
+        image = new Image(width, height);
 
         // Skip max color value
         t += 1;
@@ -182,7 +182,7 @@ class ImageEditor {
         return image;
     }
 
-    private write(image: EditImage, filePath: string): void {
+    private write(image: Image, filePath: string): void {
         let fd: number = -1
         try {
             fd = fs.openSync(filePath, 'w');
@@ -219,7 +219,7 @@ class Color {
 }
 
 
-class EditImage {
+class Image {
     private pixels: Color[][];
 
     public constructor(width: number, height: number) {
