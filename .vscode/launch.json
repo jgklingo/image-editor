@@ -18,8 +18,9 @@
             ],
             "args": [
                 "project-files/source_images/Penguins.ppm", 
-                "project-files/my_images/emboss-Penguins.ppm", 
-                "emboss"
+                "project-files/my_images/motionblur-Penguins.ppm", 
+                "motionblur",
+                "10"
             ],
             "preLaunchTask": "tsc: build - tsconfig.json"
         }

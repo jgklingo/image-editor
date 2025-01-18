@@ -82,7 +82,7 @@ class ImageEditor {
                 const curColor: Color = image.get(x, y);
 
                 const maxX: number = Math.min(image.getWidth() - 1, x + length - 1);
-                for (let i = x + 1; i < maxX; ++i) {
+                for (let i = x + 1; i <= maxX; ++i) {
                     const tmpColor: Color = image.get(i, y);
                     curColor.red += tmpColor.red;
                     curColor.green += tmpColor.green;
@@ -195,7 +195,7 @@ class ImageEditor {
             for (let y = 0; y < image.getHeight(); ++y) {
                 for (let x = 0; x < image.getWidth(); ++x) {
                     const color: Color = image.get(x, y);
-                    fs.writeSync(fd, `${x === 0 ? "" : "   "}${color.red} ${color.green} ${color.blue}`);
+                    fs.writeSync(fd, `${x === 0 ? "" : " "}${color.red} ${color.green} ${color.blue}`);
                 }
                 fs.writeSync(fd, '\n');
             }
