@@ -1,6 +1,4 @@
 import * as fs from "node:fs";
-import { resourceUsage } from "node:process";
-import { REPL_MODE_SLOPPY } from "node:repl";
 
 class ImageEditor {
     public constructor() {}
@@ -12,7 +10,7 @@ class ImageEditor {
                 return;
             }
             
-            const inputFile: string = args[0];  // these type declarations could be inferred
+            const inputFile: string = args[0];
             const outputFile: string = args[1];
             const filter: string = args[2];
 
@@ -224,7 +222,7 @@ class Color {
 class EditImage {
     private pixels: Color[][];
 
-    public constructor(width: number, height: number) {  // asked AI for example constructors
+    public constructor(width: number, height: number) {
         this.pixels = Array.from({ length: width }, () => 
             Array.from({ length: height }, () => new Color())
         );
