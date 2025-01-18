@@ -126,8 +126,8 @@ class ImageEditor {
     }
 
     private emboss(image: EditImage): void {
-        for (let x = 0; x < image.getWidth(); ++x) {
-            for (let y = 0; y < image.getHeight(); ++y) {
+        for (let x = image.getWidth() - 1; x >= 0; --x) {
+            for (let y = image.getHeight() - 1; y >= 0; --y) {
                 const curColor: Color = image.get(x, y);
 
                 let diff: number = 0;
